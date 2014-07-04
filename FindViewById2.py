@@ -41,8 +41,8 @@ def make_file(fileName):
 			temp = oneper.get(prefix+'id')
 			tempD = declare(temp,typeT)
 			tempI = implementString(temp,typeT)
-			resultDef.append(str(tempD))
-			resultImple.append(str(tempI))
+			resultDef.append(tempD)
+			resultImple.append(tempI)
 
 	finalStringI = '\n'.join(resultImple)
 	finalStringD = '\n'.join(resultDef)
