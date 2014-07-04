@@ -61,6 +61,9 @@ dir_write = "D://work//github//workspace-py//PyForAndroid"
 #固定前缀
 prefix = "{http://schemas.android.com/apk/res/android}"
 
+#需要执行批处理的文件
+fileTypelist = ['activity' , 'item']
+
 #需要找的标签
 typelist = ['TextView' , 'Button' , 'ImageView' , 'ImageButton' , 'EditText' , 'LinearLayout' , 'RelativeLayout' , 'ListView' , 'GridView' , 'ScrollView']
 
@@ -68,6 +71,12 @@ typelist = ['TextView' , 'Button' , 'ImageView' , 'ImageButton' , 'EditText' , '
 for root, dirs, files in os.walk(dir_path):
     for f in files:
         fileFullName = os.path.join(root, f)
+        fileNameList = fileFullName[len(fileFullName) - 1].split("_")
+        for fileName in fileNameList :
+            print(fileName)
+        if(fileFullName[len(fileFullName) - 1].split("_")[0] == fileTypelist[0]) :
+            print(fileTypelist[0] + "  " + fileFullName[len(fileFullName) - 1].split("_")[1])
+            
         print (fileFullName)
         str = make_file(fileFullName)
         file_path_write = open(classname(fileFullName) + ".java","w")
