@@ -4,9 +4,15 @@ import os
 from xml.etree import ElementTree as ET
 def classdef(str,filename):
 	fileS = filename.split("\\")
-	fileName = fileS[len(fileS)-1].split("_")[0].capitalize() + "Activity"
+	fileName = fileS[len(fileS) - 1].split("_")[0].capitalize() + "Activity"
 	classdef = "public class " + fileName +" extends Activity {\n" + str + "\n}"
 	return classdef
+    
+def classname(filename):
+    fileS = filename.split("\\")
+    fileName = fileS[0] + "\\" + fileS[len(fileS) - 1].split("_")[0].capitalize() + "Activity"
+    print("fileName: ",fileName)
+    return fileName
 
 def declare(temp,defineType):
 	item = temp.split('/')[1]
@@ -56,14 +62,31 @@ dir_write = "D://work//github//workspace-py//PyForAndroid"
 prefix = "{http://schemas.android.com/apk/res/android}"
 
 #需要找的标签
-typelist = ['TextView' , 'Button' , 'ImageView']
+typelist = ['TextView' , 'Button' , 'ImageView' , 'ImageButton' , 'EditText' , 'LinearLayout' , 'RelativeLayout' , 'ListView' , 'GridView' , 'ScrollView']
 
 #读取文件的路径
 for root, dirs, files in os.walk(dir_path):
     for f in files:
-    	fileFullName = os.path.join(root, f)
-    	print (fileFullName)
-    	str = make_file(fileFullName)
-    	file_path_write = open(fileFullName.split(".")[0] + ".java","w")
-    	file_path_write.write(str)
-    	file_path_write.close()
+        fileFullName = os.path.join(root, f)
+        print (fileFullName)
+        str = make_file(fileFullName)
+        file_path_write = open(classname(fileFullName) + ".java","w")
+        file_path_write.write(str)
+        file_path_write.close()
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
