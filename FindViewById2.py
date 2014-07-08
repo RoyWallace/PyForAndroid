@@ -2,10 +2,14 @@
 import sys
 import os
 from xml.etree import ElementTree as ET
+def mimport():
+    importstr = "import android.os.Bundle;\nimport android.view.LayoutInflater;\nimport android.view.View;\nimport android.view.ViewGroup;\nimport android.widget.Button;\nimport android.widget.EditText;\nimport android.widget.GridView;\nimport android.widget.ImageButton;\nimport android.widget.ImageView;\nimport android.widget.LinearLayout;\nimport android.widget.ListView;\nimport android.widget.RelativeLayout;\nimport android.widget.ScrollView;\nimport android.widget.TextView;\n\n"
+    return importstr
+
 def classdef(str,filename):
 	fileS = filename.split("\\")
 	fileName = fileS[len(fileS) - 1].split("_")[0].capitalize() + "Activity"
-	classdef = "public class " + fileName +" extends Activity {\n" + str + "\n}"
+	classdef = mimport + "public class " + fileName +" extends Activity {\n" + str + "\n}"
 	return classdef
     
 def classname(filename):
@@ -53,7 +57,11 @@ def make_file(fileName):
 	return string3
 
 #输入的目录路径
-dir_path = sys.argv[1]
+#dir_path = sys.argv[1]
+dir_path = "D://work//github//workspace-py//PyForAndroid"
+
+#指定包名
+package_name = sys.argv[1]
 
 #输出指定的文件夹目录
 dir_write = "D://work//github//workspace-py//PyForAndroid"
