@@ -5,11 +5,15 @@ from xml.etree import ElementTree as ET
 def mimport():
     importstr = "import android.os.Bundle;\nimport android.app.Activity;\nimport android.view.LayoutInflater;\nimport android.view.View;\nimport android.view.ViewGroup;\nimport android.widget.Button;\nimport android.widget.EditText;\nimport android.widget.GridView;\nimport android.widget.ImageButton;\nimport android.widget.ImageView;\nimport android.widget.LinearLayout;\nimport android.widget.ListView;\nimport android.widget.RelativeLayout;\nimport android.widget.ScrollView;\nimport android.widget.TextView;\n\n"
     return importstr
+    
+def moncreate():
+    str="\t@Override\tprotected void onCreate(Bundle savedInstanceState) {\tsuper.onCreate(savedInstanceState);\tsetContentView(R.layout.activity_main);\t}"
+    return str
 
 def classdef(str,filename):
 	fileS = filename.split("\\")
 	fileName = fileS[len(fileS) - 1].split("_")[0].capitalize() + "Activity"
-	classdef = mimport + "public class " + fileName +" extends Activity {\n" + str + "\n}"
+	classdef = mimport() + "public class " + fileName +" extends Activity {\n"+ moncreate() + str + "\n}"
 	return classdef
     
 def classname(filename):
