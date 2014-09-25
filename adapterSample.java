@@ -13,7 +13,7 @@ public class CommentAdapter extends BaseAdapter {
 
     private Context context;
 
-    private List<String> commentList = new ArrayList<String>();
+    private List<Object> objectList = new ArrayList<Object>();
 
     public CommentAdapter(Context context, List<String> commentList){
         this.context = context;
@@ -42,15 +42,45 @@ public class CommentAdapter extends BaseAdapter {
         if(view== null){
             view = LayoutInflater.from(context).inflate(R.layout.item_comment,null);
             holder = new ViewHolder();
+            holder.avatarIv = view.findViewById(R.id.avatarIv);
+            holder.userNmaeTv = view.findViewById(R.id.userNmaeTv);
+            holder.commentTv = view.findViewById(R.id.commentTv);
             view.setTag(holder);
         }else{
             holder = (ViewHolder) view.getTag();
         }
+        
+        holder.avatarIv.setImageResource();
+        
+        holder.avatarIv.setOnClickListener(new View.OnClickListener(){
+             @Override
+            public void onClick(View view){
+                
+            }
+        });
+        
+        holder.userNmaeTv.setText();
+        
+        holder.userNmaeTv.setOnClickListener(new View.OnClickListener(){
+             @Override
+            public void onClick(View view){
+                
+            }
+        });
+        
+        holder.commentTv.setText();
+        
+        holder.commentTv.setOnClickListener(new View.OnClickListener(){
+             @Override
+            public void onClick(View view){
+                
+            }
+        });
 
         return view;
     }
 
-    class ViewHolder{
+    private class ViewHolder{
         ImageView avatarIv;
 
         TextView userNmaeTv;

@@ -1,6 +1,7 @@
 #encoding=utf-8
 import sys
 import os
+import configparser
 from xml.etree import ElementTree as ET
  
 def mimport():
@@ -13,20 +14,24 @@ def moncreate():
 
 def classdef(str,filename):
     fileS = filename.split("\\")
-    fileName = fileS[len(fileS) - 1].split("_")[0].capitalize() + "Activity"
-    classdef = mimport() + "public class " + fileName +" extends Activity {\n"+ moncreate() + str + "\n}"
+    className = fileS[len(fileS) - 1].split("_")[0].capitalize() + "Adapter"
+    classdef = mimport() + "public class " + className +" extends BaseAdapter {\tprivate Context context;\tprivate List<Object> objectList = new ArrayList<Object>();\n"+ "\tpublic "+className +"(Context context, List<Object> objectList){\t\tthis.context = context;\t\tthis.objectList = objectList;\t}"
     return classdef
     
 def classname(filename):
     fileS = filename.split("\\")
-    fileName = fileS[0] + "\\" + fileS[len(fileS) - 1].split("_")[0].capitalize() + "Activity"
-    print("fileName: ",fileName)
+    fileName = fileS[0] + "\\" + fileS[len(fileS) - 1].split("_")[0].capitalize() + "Adapter"
+    print(fileName)
     return fileName
 
 def declare(temp,defineType):
     item = temp.split('/')[1]
-    tempR = "\tprivate " + defineType + " " + item + ";"
+    tempR = "\t" + defineType + " " + item + ";"
     return tempR
+    
+def holder():
+    findAllViewStr = "\tprivate class ViewHolder{" + "\n" + str + "\n" + "\t}"
+    return findAllViewStr
 
 def implementString(temp,defineType):
     item = temp.split('/')[1]
@@ -63,13 +68,13 @@ def make_file(fileName):
 
 #输入的目录路径
 #dir_path = sys.argv[1]
-dir_path = "D://work//github//workspace-py//PyForAndroid"
+dir_path = "E://github//PyForAndroid//xml_for_test"
 
-#指定包名
-package_name = sys.argv[1]
+# #指定包名
+# package_name = sys.argv[1]
 
 #输出指定的文件夹目录
-dir_write = "D://work//github//workspace-py//PyForAndroid"
+dir_write = "E://github//PyForAndroid//xml_for_test"
 
 #固定前缀
 prefix = "{http://schemas.android.com/apk/res/android}"
@@ -93,8 +98,8 @@ for root, dirs, files in os.walk(dir_path):
         fileNameList = fileFullName[len(fileFullName) - 1].split("_")
         for fileName in fileNameList :
             print(fileName)
-        if(fileFullName[len(fileFullName) - 1].split("_")[0] == fileTypelist[0]) :
-            print(fileTypelist[0] + "  " + fileFullName[len(fileFullName) - 1].split("_")[1])
+        if(fileFullName[len(fileFullName) - 1].split("_")[0] == fileTypelist[1]) :
+            print(fileTypelist[1] + "  " + fileFullName[len(fileFullName) - 1].split("_")[1])
             
         print (fileFullName)
         str = make_file(fileFullName)
