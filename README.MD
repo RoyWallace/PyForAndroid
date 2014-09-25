@@ -1,2 +1,4 @@
-this is  a python for android
-names "android helper"
+PyForAndroid
+============
+
+this is a  android helper

@@ -2,7 +2,7 @@
 import sys
 import os
 from xml.etree import ElementTree as ET
-
+ 
 def mimport():
     importstr = "import android.os.Bundle;\nimport android.app.Activity;\nimport android.view.LayoutInflater;\nimport android.view.View;\nimport android.view.ViewGroup;\nimport android.widget.Button;\nimport android.widget.EditText;\nimport android.widget.GridView;\nimport android.widget.ImageButton;\nimport android.widget.ImageView;\nimport android.widget.LinearLayout;\nimport android.widget.ListView;\nimport android.widget.RelativeLayout;\nimport android.widget.ScrollView;\nimport android.widget.TextView;\n\n"
     return importstr
