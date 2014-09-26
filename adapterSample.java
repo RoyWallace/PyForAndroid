@@ -81,6 +81,7 @@ public class CommentAdapter extends BaseAdapter {
     }
 
     private class ViewHolder{
+        
         ImageView avatarIv;
 
         TextView userNmaeTv;

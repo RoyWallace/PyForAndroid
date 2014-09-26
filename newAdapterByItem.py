@@ -15,8 +15,16 @@ def moncreate():
 def classdef(str,filename):
     fileS = filename.split("\\")
     className = fileS[len(fileS) - 1].split("_")[0].capitalize() + "Adapter"
-    classdef = mimport() + "public class " + className +" extends BaseAdapter {\tprivate Context context;\tprivate List<Object> objectList = new ArrayList<Object>();\n"+ "\tpublic "+className +"(Context context, List<Object> objectList){\t\tthis.context = context;\t\tthis.objectList = objectList;\t}"
+    classdef = mimport() + "public class " + className +" extends BaseAdapter {\nprivate Context context;\nprivate List<Object> objectList = new ArrayList<Object>();\n"+ "\npublic "+className +"(Context context, List<Object> objectList){\nthis.context = context;\nthis.objectList = objectList;\n}"
     return classdef
+    
+def method():
+    methodStr = "@Override\npublic int getCount() {\nreturn commentList.size();\n}\n@Override\npublic Object getItem(int i) {\nreturn null;\nt}\n@Override\npublic long getItemId(int i) {\nreturn 0;\n}\n"
+    return methodStr
+    
+def getView(findAllViewStr):
+    getViewStr = "\t@verride\tpublic View getView(int position,View view,ViewGroup viewGroup){\t\tViewHolder holder = null;\t\tif(view== null){\nview = LayoutInflater.from(context).inflate(R.layout.item_comment,null);\nholder = new ViewHolder();\n" + findAllViewStr +"view.setTag(holder);\n}else{\nholder = (ViewHolder)view.getTag();\n}\n" + setData() + "\nreturn view;\n}\n"
+    return getViewStr
     
 def classname(filename):
     fileS = filename.split("\\")
@@ -30,18 +38,42 @@ def declare(temp,defineType):
     return tempR
     
 def holder():
-    findAllViewStr = "\tprivate class ViewHolder{" + "\n" + str + "\n" + "\t}"
-    return findAllViewStr
+    holderStr = "\tprivate class ViewHolder{" + "\n" + str + "\n" + "\t}"
+    return holderStr
 
 def implementString(temp,defineType):
     item = temp.split('/')[1]
-    tempR = "\t\t" + item + " = (" + defineType +")findViewById(R.id."+ item + ");"
+    tempR = "\t\t" + item + " = (" + defineType + ")findViewById(R.id."+ item + ");"
     return tempR
 
 def findAllView(str):
     findAllViewStr = "\tprivate void findAllView(){" + "\n" + str + "\n" + "\t}"
     return findAllViewStr
 
+# def make_file(fileName):
+#     #结果列表
+#     resultDef = []
+#     resultImple = []
+
+#     per=ET.parse(fileName)
+
+#     for typeT in typelist:
+#         p=per.findall("./"+typeT)
+#         for oneper in p:  
+#             temp = oneper.get(prefix+'id')
+#             tempD = declare(temp,typeT)
+#             tempI = implementString(temp,typeT)
+#             resultDef.append(tempD)
+#             resultImple.append(tempI)
+
+#     finalStringI = '\n'.join(resultImple)
+#     finalStringD = '\n'.join(resultDef)
+
+#     string1 = findAllView(finalStringI)
+#     string2 = finalStringD + "\n\n"+ string1
+#     string3 = classdef(string2,fileName)
+#     return string3
+    
 def make_file(fileName):
     #结果列表
     resultDef = []
@@ -61,20 +93,20 @@ def make_file(fileName):
     finalStringI = '\n'.join(resultImple)
     finalStringD = '\n'.join(resultDef)
 
-    string1 = findAllView(finalStringI)
+    string1 = getView(finalStringI)
     string2 = finalStringD + "\n\n"+ string1
     string3 = classdef(string2,fileName)
     return string3
 
 #输入的目录路径
 #dir_path = sys.argv[1]
-dir_path = "E://github//PyForAndroid//xml_for_test"
+dir_path = "E:/github/PyForAndroid/xml_for_test"
 
 # #指定包名
 # package_name = sys.argv[1]
 
 #输出指定的文件夹目录
-dir_write = "E://github//PyForAndroid//xml_for_test"
+dir_write = "E://github//PyForAndroid"
 
 #固定前缀
 prefix = "{http://schemas.android.com/apk/res/android}"
@@ -95,18 +127,28 @@ typelist = cf.sections()
 for root, dirs, files in os.walk(dir_path):
     for f in files:
         fileFullName = os.path.join(root, f)
-        fileNameList = fileFullName[len(fileFullName) - 1].split("_")
-        for fileName in fileNameList :
-            print(fileName)
-        if(fileFullName[len(fileFullName) - 1].split("_")[0] == fileTypelist[1]) :
-            print(fileTypelist[1] + "  " + fileFullName[len(fileFullName) - 1].split("_")[1])
-            
-        print (fileFullName)
-        str = make_file(fileFullName)
-        file_path_write = open(classname(fileFullName) + ".java","w")
-        file_path_write.write(str)
-        file_path_write.close()
+        print(fileFullName)
+        #get file Name
+        fileName = fileFullName.split("\\")[1]
+        print(fileName)
+        nameList = fileName.split("_")
+        #get file Type
+        fileType = fileName.split("_")[1].split(".")[0]
+        print(fileType)
+        #new file name
+        newFileName = nameList[0].capitalize() + fileType.capitalize()
+        print(newFileName)
         
+        # for fileName in fileNameList :
+        #     print(fileName)
+        # if(fileType == fileTypelist[1]) :
+        #     print(fileTypelist[1])
+            
+        # print (fileFullName)
+        # str = make_file(fileFullName)
+        # file_path_write = open(classname(fileFullName) + ".java","w")
+        # file_path_write.write(str)
+        # file_path_write.close()
         
         
         
